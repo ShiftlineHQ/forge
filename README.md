@@ -83,22 +83,30 @@ lab3-probability/
 
 ## The /solve Pipeline
 
+```mermaid
+flowchart LR
+    A[Guide PDF] --> B[Planner]
+    B --> C[Solver]
+    C --> D[Writer]
+    D --> E[Reviewer]
+    E --> F[docs/report.pdf]
+
+    B:::planner
+    C:::solver
+    D:::writer
+    E:::reviewer
+
+    classDef planner fill:#2563eb,color:#fff
+    classDef solver fill:#16a34a,color:#fff
+    classDef writer fill:#9333ea,color:#fff
+    classDef reviewer fill:#ea580c,color:#fff
 ```
-Guide PDF
-     │
-     ▼
-┌─────────┐     ┌─────────┐     ┌─────────┐     ┌──────────┐
-│ Planner │ ──▶ │ Solver  │ ──▶ │ Writer  │ ──▶ │ Reviewer │
-│         │     │         │     │         │     │          │
-│ Parses  │     │ Solves  │     │ Writes  │     │Compiles  │
-│ PDF,    │     │ tasks,  │     │ report  │     │ Typst,   │
-│ creates │     │ code,   │     │ in Typst│     │ verifies │
-│ TASK.md │     │ charts  │     │         │     │ PDF      │
-└─────────┘     └─────────┘     └─────────┘     └──────────┘
-                                                      │
-                                                      ▼
-                                                docs/report.pdf
-```
+
+Where:
+- **Planner** — Parses PDF, creates TASK.md
+- **Solver** — Solves tasks, code, charts
+- **Writer** — Writes report in Typst
+- **Reviewer** — Compiles Typst, verifies PDF
 
 ## Configuration
 
