@@ -1,4 +1,4 @@
-![Forge Framework Logo](logo.png)
+<img src="logo.png" width="256" />
 
 # Forge Framework
 
