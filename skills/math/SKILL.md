@@ -12,7 +12,7 @@ Solve mathematical tasks by writing Python scripts (or Jupyter notebooks if MCP 
 ## Workflow
 
 1. Read `TASK.md` for the assignment, variant data, and required deliverables.
-2. Read `labflow.yaml` for variant number and lab context.
+2. Read `forge.yaml` for variant number and lab context.
 3. Choose format:
    - **If Jupyter MCP is available**: create a notebook via MCP tools.
    - **Otherwise**: create Python scripts in `src/` (preferred for automation).
@@ -25,7 +25,7 @@ Create `src/solve.py` with clearly separated steps:
 
 ```python
 #!/usr/bin/env python3
-"""Решение лабораторной работы."""
+"""Lab assignment solution."""
 
 import numpy as np
 import matplotlib
@@ -34,12 +34,12 @@ import matplotlib.pyplot as plt
 # Other imports as needed
 
 # ============================================================
-# Шаг 1: Исходные данные
+# Step 1: Input Data
 # ============================================================
 # <describe input data>
 
 # ============================================================
-# Шаг 2: <describe what this step does>
+# Step 2: <describe what this step does>
 # ============================================================
 # Formula: <formula in comments>
 # <computation>
@@ -47,7 +47,7 @@ import matplotlib.pyplot as plt
 # ... more steps ...
 
 # ============================================================
-# Подготовка материалов для отчёта
+# Report Materials Preparation
 # ============================================================
 
 # Save plots
@@ -71,7 +71,7 @@ Show the full derivation:
 4. Print the final result
 
 ### Subsequent computations of the same kind
-- Note "by analogy" or "аналогично"
+- Note "by analogy" or similar
 - Compute all results
 - Present them in a summary table using `pandas.DataFrame` or formatted print
 
@@ -106,8 +106,8 @@ plt.savefig('images/regression.png', dpi=150, bbox_inches='tight')
 ```
 
 Plot styling:
-- Use `plt.rcParams['font.family']` with a font that supports Cyrillic (DejaVu Sans, Liberation Sans)
-- Labels and titles in Russian
+- Use `plt.rcParams['font.family']` with a font that supports the report language (DejaVu Sans, Liberation Sans)
+- Labels and titles in the report language
 - Grid on when appropriate
 - Adequate figure size (8x5 or 10x6)
 
@@ -143,4 +143,4 @@ pip install numpy scipy sympy matplotlib pandas --break-system-packages -q
 - [ ] Results printed to console (captured for report)
 - [ ] `src/formulas.typ` created with key formulas in Typst syntax
 - [ ] `src/tables.typ` created with result tables in Typst syntax
-- [ ] All text (comments, labels, output) in Russian
+- [ ] All text (comments, labels, output) in the report language

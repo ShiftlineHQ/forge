@@ -1,21 +1,21 @@
 ---
-name: labflow
-description: LabFlow — automated lab assignment system. Use when the user wants to initialize, solve, or manage university lab assignments. Provides /init, /solve, and /study commands.
+name: forge
+description: Forge Framework — automated lab assignment system. Use when the user wants to initialize, solve, or manage university lab assignments. Provides /init, /solve, and /study commands.
 ---
 
-# LabFlow — Automated Lab Assignment System
+# Forge Framework — Automated Lab Assignment System
 
-LabFlow is a fully autonomous system for completing university lab assignments. It handles everything from parsing the guide PDF to compiling the final report as a PDF.
+Forge Framework is a fully autonomous system for completing university lab assignments. It handles everything from parsing the guide PDF to compiling the final report as a PDF.
 
 ## Available Commands
 
 - **`/init`** — Initialize a new lab project (creates structure, config, template, installs Typst)
 - **`/solve`** — Run full pipeline: parse guide → solve → write report → compile PDF
-- **`/study`** — Generate study materials with theory and control questions
+- **`/study`** — Generate study materials with theory and test questions
 
 ## Architecture
 
-LabFlow uses a pipeline of specialized skills and subagents:
+Forge Framework uses a pipeline of specialized skills and subagents:
 
 1. **Planner** (subagent) — parses guide PDF, extracts requirements into TASK.md
 2. **Solver** (subagent) — implements the solution (code/math)
@@ -26,8 +26,8 @@ When subagents are not available (e.g., in OpenCode), the orchestrator skill run
 
 ## Configuration
 
-- **Global config**: `~/.labflow.yaml` — student and university data (set once)
-- **Project config**: `./labflow.yaml` — subject and lab details (per project)
+- **Global config**: `~/.forge.yaml` — student and university data (set once)
+- **Project config**: `./forge.yaml` — subject and lab details (per project)
 
 ## Quick Start
 
@@ -38,10 +38,3 @@ mkdir lab3 && cd lab3
 cp ~/Downloads/guide.pdf .
 # Run /solve guide.pdf — fully autonomous
 ```
-
-## Compatibility
-
-Works in both Claude Code and OpenCode (opencode.ai):
-- Both support `.claude/skills/` and `.claude/agents/`
-- Both support bash execution and file operations
-- Subagents available in Claude Code; OpenCode runs sequentially

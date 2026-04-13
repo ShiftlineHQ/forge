@@ -12,7 +12,7 @@ Implement programming tasks according to `TASK.md`. Produce clean, compilable, w
 ## Before coding
 
 1. Read `TASK.md` to understand requirements.
-2. Read `labflow.yaml` to determine the language (`lab.code_language`). Default: C++23.
+2. Read `forge.yaml` to determine the language (`lab.code_language`). Default: C++23.
 3. Check if there are existing files in `src/` to understand the project structure.
 
 ## Language-specific conventions
@@ -23,8 +23,8 @@ Implement programming tasks according to `TASK.md`. Produce clean, compilable, w
 - Headers in `.hpp` with `#pragma once`.
 - Implementations in `.cpp`.
 - 2-space indentation, `snake_case` for variables/functions, `PascalCase` for types.
-- Minimal comments in Russian.
-- All program output text in Russian.
+- Minimal comments in the report language.
+- All program output text in the report language.
 - No decorative box-drawing characters in output.
 - Split into multiple files when it improves clarity.
 

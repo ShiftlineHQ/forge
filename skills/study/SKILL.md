@@ -7,7 +7,7 @@ description: Generate comprehensive study materials with theory, methods, worked
 
 ## Purpose
 
-Create `STUDY_MATERIAL.md` — a self-contained study document covering all theory, methods, and formulas for the current lab, plus control questions with detailed answers. This is a learning aid for exam prep, not a formal report.
+Create `STUDY_MATERIAL.md` — a self-contained study document covering all theory, methods, and formulas for the current lab, plus test questions with detailed answers. This is a learning aid for exam prep, not a formal report.
 
 ## Workflow
 
@@ -19,48 +19,48 @@ Create `STUDY_MATERIAL.md` — a self-contained study document covering all theo
 ## Output Structure
 
 ```markdown
-# <Lab Title> — Учебные материалы
+# <Lab Title> — Study Materials
 
-## 1. Теоретическая база
+## 1. Theoretical Foundation
 
 <Full explanation of underlying theory. Key definitions with clear explanations.
 All relevant formulas with descriptions of every variable.
 Conditions of applicability and limitations.>
 
-## 2. Методы и алгоритмы
+## 2. Methods and Algorithms
 
 <Step-by-step description of each method used.
 Decision criteria (thresholds, critical values).
 Interpretation rules for results.>
 
-## 3. Разбор решения
+## 3. Solution Walkthrough
 
 <Brief walkthrough of how methods apply to the variant from TASK.md.
 Key intermediate results — do NOT re-solve, just summarize.>
 
-## 4. Ключевые выводы
+## 4. Key Takeaways
 
 <Most important facts and relationships to remember.
 Common mistakes and how to avoid them.>
 
-## 5. Контрольные вопросы и ответы
+## 5. Test Questions and Answers
 
-### В1: <question>
-**Ответ:** <detailed answer>
+### Q1: <question>
+**Answer:** <detailed answer>
 
-### В2: <question>
-**Ответ:** <detailed answer>
+### Q2: <question>
+**Answer:** <detailed answer>
 
 ... (at least 10 questions)
 ```
 
 ## Writing rules
 
-- Language: Russian
+- Language: the report language
 - Be thorough — sufficient for exam preparation
 - Formulas in LaTeX: `$...$` inline, `$$...$$` display
 - No raw code — explain concepts in prose
 - Do not modify any project files
-- At least 10 control questions covering all major topics
+- At least 10 test questions covering all major topics
 - Questions: range from basic definitions to applied/analytical
 - Every question MUST have a complete, detailed answer

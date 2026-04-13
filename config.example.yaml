@@ -1,22 +1,22 @@
-# LabFlow Configuration
-# Global config: ~/.labflow.yaml (student + university, shared across all labs)
-# Project config: ./labflow.yaml (inherits global, adds subject + lab details)
+# Forge Framework Configuration
+# Global config: ~/.forge.yaml (student + university, shared across all labs)
+# Project config: ./forge.yaml (inherits global, adds subject + lab details)
 
 student:
-  name: "Иванов Иван Иванович"
-  name_short: "И.И. Иванов"   # инициалы + фамилия (для титульной страницы)
-  group: "ИУ7-43Б"
+  name: "Ivanov Ivan Ivanovich"
+  name_short: "I.I. Ivanov"   # initials + surname (for title page)
+  group: "IU7-43B"
 
 university:
-  name: "МГТУ им. Н.Э. Баумана"
-  short: "МГТУ"
-  department: "Кафедра № "     # факультет/кафедра
-  city: "Москва"
+  name: "Bauman Moscow State Technical University"
+  short: "MSTU"
+  department: "Department # "     # faculty/department
+  city: "Moscow"
 
 subject:
-  name: "Теория вероятностей"
-  teacher: "Петров П.П."
-  teacher_position: ""         # должность, уч. степень, звание (опционально)
+  name: "Probability Theory"
+  teacher: "Petrov P.P."
+  teacher_position: ""         # position, degree, title (optional)
 
 lab:
   number: 1

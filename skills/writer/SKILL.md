@@ -9,14 +9,14 @@ description: Write the Typst lab report in docs/report.typ. Follows TASK.md stru
 
 Write the complete lab report in `docs/report.typ`. The report must be:
 - Structurally aligned with `TASK.md`
-- Written in coherent Russian prose
+- Written in the report language (usually Russian)
 - Properly formatted with Typst syntax
 - Ready to compile to PDF without errors
 
 ## Before writing
 
 1. Read `TASK.md` — this is your structural guide. Mirror its sections exactly.
-2. Read `labflow.yaml` — for metadata (student, subject, lab number, etc.).
+2. Read `forge.yaml` — for metadata (student, subject, lab number, etc.).
 3. Read solution files:
    - `src/` — source code files
    - `images/` — plots, screenshots
@@ -41,7 +41,7 @@ The report file is `docs/report.typ`. It should already have a skeleton created 
 
 **Before writing content**, update the `__TITLE__` placeholder in `docs/template.typ` if it's still empty:
 ```bash
-sed -i 's/__TITLE__/Лабораторная работа №<N>. <lab title>/g' docs/template.typ
+sed -i 's/__TITLE__/Lab #<N>. <lab title>/g' docs/template.typ
 ```
 
 Then write sections directly after `#show: init`:
@@ -51,21 +51,21 @@ Then write sections directly after `#show: init`:
 
 #show: init
 
-= Постановка задачи
+= Task Description
 
 <content>
 
-= График функции
+= Function Graph
 
 <content with figures>
 
-= Решение
+= Solution
 
-== Метод половинного деления
+== Bisection Method
 
 <content with tables and formulas>
 
-= Выводы
+= Conclusions
 
 <content>
 ```
@@ -76,14 +76,14 @@ Then write sections directly after `#show: init`:
 - No bold or italics in body text (except for variable names in code context).
 - No bullet lists — write in coherent paragraphs.
 - No numbered lists in body text (use Typst's `#enum()` only for algorithms or procedures from the task).
-- Language: Russian (unless the assignment specifies otherwise).
+- Language: report language (unless the assignment specifies otherwise).
 - Academic but not overly formal tone.
 
 ### Headings
 ```typst
-= Цель работы
+= Objective
 
-== Теоретическая часть
+== Theoretical Background
 ```
 
 ### Code inclusion
@@ -92,7 +92,7 @@ Embed source files using Typst raw reads:
 ```typst
 #figure(
   raw(read("../src/main.cpp"), lang: "cpp", block: true),
-  caption: [Листинг: main.cpp]
+  caption: [Listing: main.cpp]
 )
 ```
 
@@ -100,7 +100,7 @@ For multiple source files, include each one:
 ```typst
 #figure(
   raw(read("../src/utils.hpp"), lang: "cpp", block: true),
-  caption: [Листинг: utils.hpp]
+  caption: [Listing: utils.hpp]
 )
 ```
 
@@ -108,7 +108,7 @@ For Python:
 ```typst
 #figure(
   raw(read("../src/solve.py"), lang: "python", block: true),
-  caption: [Листинг: solve.py]
+  caption: [Listing: solve.py]
 )
 ```
 
@@ -116,12 +116,12 @@ For Python:
 ```typst
 #figure(
   image("../images/output.png", width: 80%),
-  caption: [Результат работы программы]
+  caption: [Program output]
 )
 
 #figure(
   image("../images/plot_distribution.png", width: 90%),
-  caption: [График распределения случайной величины]
+  caption: [Random variable distribution plot]
 )
 ```
 
@@ -141,19 +141,19 @@ If `src/formulas.typ` exists, you can include prepared formulas from there.
   table(
     columns: 4,
     align: center,
-    table.header([*№*], [*x*], [*y*], [*f(x)*]),
+    table.header([*#], [*x*], [*y*], [*f(x)*]),
     [1], [0.0], [1.0], [0.5],
     [2], [0.5], [1.5], [0.8],
   ),
-  caption: [Результаты вычислений]
+  caption: [Computational results]
 )
 ```
 
 If `src/tables.typ` exists, include the prepared tables.
 
 ### Conclusion
-The conclusion section ("Вывод" or "Заключение") must:
-- Summarize what was done in 2-3 sentences
+The conclusion section must:
+- Summarize what was done in 2–3 sentences
 - State whether the objective was achieved
 - Mention key results or findings
 - Be written as a paragraph, not a list
@@ -161,19 +161,19 @@ The conclusion section ("Вывод" or "Заключение") must:
 ## Common section templates
 
 ### For code-type labs:
-1. Цель работы — one paragraph stating the objective
-2. Теоретическая часть — key concepts and methods (2-4 paragraphs)
-3. Выполнение задания — description of the solution approach
-4. Листинг программы — code listings
-5. Результаты работы — screenshots of program output
-6. Вывод — conclusion
+1. Objective — one paragraph stating the goal
+2. Theoretical Background — key concepts and methods (2–4 paragraphs)
+3. Task Execution — description of the solution approach
+4. Code Listing — code listings
+5. Results — screenshots of program output
+6. Conclusions — summary
 
 ### For math-type labs:
-1. Цель работы
-2. Теоретическая часть — formulas, methods
-3. Выполнение задания — step-by-step solution with formulas and calculations
-4. Результаты — tables with results, plots
-5. Вывод
+1. Objective
+2. Theoretical Background — formulas, methods
+3. Task Execution — step-by-step solution with formulas and calculations
+4. Results — tables with results, plots
+5. Conclusions
 
 ## Verification before finishing
 
@@ -183,7 +183,7 @@ After writing, mentally check:
 - [ ] All images referenced actually exist in `images/`
 - [ ] All source files referenced actually exist in `src/`
 - [ ] No Typst syntax errors (matching brackets, proper function calls)
-- [ ] Caption text is meaningful and in Russian
+- [ ] Caption text is meaningful and in the report language
 - [ ] The conclusion references actual results
 
 ## Hard constraints
@@ -195,7 +195,7 @@ After writing, mentally check:
 - Do NOT leave placeholder text — every section must have real content.
 - DO update `__TITLE__` in `template.typ` if it's still a placeholder.
 - Headings use Typst numbering (`= Heading` gets auto-numbered as "1 Heading" etc.) — this is set by `set heading(numbering: "1.1")` in the template.
-- Figures are labeled "Рисунок" for images and "Таблица" for tables automatically.
+- Figures are labeled "Figure" for images and "Table" for tables automatically.
 - Math equations are auto-numbered with `(1)`, `(2)`, etc.
 - Code blocks use JetBrains Mono 10pt automatically.
-- Use `#ch("Title")` for centered unnumbered headings if needed (e.g., "ЗАКЛЮЧЕНИЕ").
+- Use `#ch("Title")` for centered unnumbered headings if needed (e.g., "CONCLUSION").

@@ -10,7 +10,7 @@ You are a solver agent for lab assignments. Your job is to implement the complet
 ## Process
 
 1. Read `TASK.md` for task requirements.
-2. Read `labflow.yaml` for lab type and language.
+2. Read `forge.yaml` for lab type and language.
 3. Based on the type:
    - **code**: Write source code in `src/`, build, run, capture output.
    - **math**: Write Python scripts in `src/`, compute results, save plots.
@@ -20,7 +20,7 @@ You are a solver agent for lab assignments. Your job is to implement the complet
 
 ## Key rules
 
-- All comments and output text in Russian.
+- All comments and output text in the report language.
 - Code must compile/run without errors.
 - All plots saved to `images/` as PNG.
 - Program output captured as text AND as image screenshot.

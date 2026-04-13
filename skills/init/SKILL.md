@@ -1,34 +1,34 @@
 ---
 name: init
-description: Initialize a new LabFlow lab project. Use when starting a new lab assignment. Creates project structure, config, Typst template, installs dependencies. Run as /init or /init <subject> <lab_number>.
+description: Initialize a new Forge Framework lab project. Use when starting a new lab assignment. Creates project structure, config, Typst template, installs dependencies. Run as /init or /init <subject> <lab_number>.
 argument-hint: "[subject] [lab_number]"
 ---
 
-# Init — LabFlow Project Initializer
+# Init — Forge Framework Project Initializer
 
 You are setting up a new lab assignment project. Your goal is to create everything the student needs so that `/solve` can run fully autonomously afterward.
 
 ## Step 1: Gather Configuration
 
-Check if `~/.labflow.yaml` exists.
+Check if `~/.forge.yaml` exists.
 
 **If it exists:** read student and university data from it.
 **If it does NOT exist:** ask the user for:
-- Full name (ФИО)
-- Short name (инициалы + фамилия, e.g. "В.Д. Панков")
+- Full name
+- Short name (initials + surname, e.g. "V.D. Pankov")
 - Group number
 - University name and short name
-- Department/faculty (кафедра)
+- Department/faculty
 - City
 
-Then save to `~/.labflow.yaml` so it's never asked again.
+Then save to `~/.forge.yaml` so it's never asked again.
 
 Check if arguments were provided (`$ARGUMENTS`). Parse them for subject name and lab number.
 
 If subject/lab info is missing, ask the user:
-- Subject name (предмет)
-- Teacher name (преподаватель) — optional
-- Teacher position/degree (должность, уч. степень) — optional
+- Subject name
+- Teacher name — optional
+- Teacher position/degree — optional
 - Lab number
 - Variant number (0 if not applicable)
 - Lab type: `math`, `code`, or `mixed`
@@ -58,7 +58,7 @@ Create these directories and files:
 
 ```
 ./
-├── labflow.yaml
+├── forge.yaml
 ├── CLAUDE.md
 ├── src/
 ├── notebooks/
@@ -83,19 +83,19 @@ Create these directories and files:
 └── .gitignore
 ```
 
-## Step 4: Generate labflow.yaml
+## Step 4: Generate forge.yaml
 
-Write `labflow.yaml` in the project root with all gathered data:
+Write `forge.yaml` in the project root with all gathered data:
 
 ```yaml
 student:
   name: "<full name>"
-  name_short: "<initials + surname, e.g. В.Д. Панков>"
+  name_short: "<initials + surname, e.g. V.D. Pankov>"
   group: "<group>"
 university:
   name: "<university full name>"
   short: "<short name>"
-  department: "<department/faculty, e.g. Кафедра № 44>"
+  department: "<department/faculty>"
   city: "<city>"
 subject:
   name: "<subject>"
@@ -110,19 +110,19 @@ lab:
   code_language: "<lang>"
 ```
 
-When generating `name_short` from the full name: "Панков Василий Дмитриевич" → "В.Д. Панков".
+When generating `name_short` from the full name: "Pankov Vasiliy Dmitrievich" → "V.D. Pankov".
 
 ## Step 5: Set Up Typst Template
 
 The template consists of TWO files: `docs/titlepage.typ` and `docs/template.typ`.
 
-**Copy both from the LabFlow installation** — look in these locations (in order):
+**Copy both from the Forge Framework installation** — look in these locations (in order):
 1. `../../templates/titlepage.typ` and `../../templates/template.typ` (relative to this skill file)
-2. `~/.claude/skills/labflow/templates/titlepage.typ` and `template.typ`
+2. `~/.claude/skills/forge/templates/titlepage.typ` and `template.typ`
 
 If not found, the template content is embedded below for reference — generate the files from it.
 
-After copying, **fill in the placeholders** in `docs/template.typ` by replacing `__PLACEHOLDER__` strings with real values from `labflow.yaml`:
+After copying, **fill in the placeholders** in `docs/template.typ` by replacing `__PLACEHOLDER__` strings with real values from `forge.yaml`:
 
 | Placeholder | Source |
 |---|---|
@@ -158,7 +158,7 @@ Then create `docs/report.typ`:
 // Sections will be filled by the writer agent
 ```
 
-**IMPORTANT:** The report uses `#show: init` (NOT `lab-report.with(...)`). All metadata is baked into `template.typ` from `labflow.yaml`. The `ch(content)` function is available for centered unnumbered headings.
+**IMPORTANT:** The report uses `#show: init` (NOT `lab-report.with(...)`). All metadata is baked into `template.typ` from `forge.yaml`. The `ch(content)` function is available for centered unnumbered headings.
 
 ## Step 6: Generate CLAUDE.md
 
@@ -172,7 +172,7 @@ Create `CLAUDE.md` in the project root with:
 
 ## Step 7: Copy Skills and Agents
 
-Read all skill files from the LabFlow installation directory (the directory where THIS skill file is located). Copy the content of each skill into the project's `.claude/skills/` and `.claude/agents/` directories.
+Read all skill files from the Forge Framework installation directory (the directory where THIS skill file is located). Copy the content of each skill into the project's `.claude/skills/` and `.claude/agents/` directories.
 
 The source skills are siblings of this file's parent directory. Look for:
 - `../solve/SKILL.md`
@@ -206,14 +206,14 @@ build/
 ```bash
 git init
 git add -A
-git commit -m "init: labflow project for <subject> lab <N>"
+git commit -m "init: forge project for <subject> lab <N>"
 ```
 
 ## Step 10: Final Summary
 
 Print a summary:
 ```
-✅ LabFlow project initialized!
+✅ Forge Framework project initialized!
 
 📁 Project: <subject> — Lab <N>
 👤 Student: <name> (<group>)
@@ -221,12 +221,6 @@ Print a summary:
 📝 Type: <type>
 
 Next steps:
-1. Place the guide PDF (методичка) in the project root
+1. Place the guide PDF in the project root
 2. Run: /solve guide.pdf
 ```
-
-## Compatibility Notes
-
-This skill works identically in Claude Code and OpenCode (opencode.ai).
-Both tools support `.claude/skills/` and `.claude/agents/` directories.
-If the tool does not support subagents, the orchestrator skill (/solve) will perform all steps sequentially in a single context.

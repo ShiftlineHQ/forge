@@ -3,14 +3,14 @@
 
 #let init(body) = {
   // =====================================================
-  // LABFLOW: параметры ниже заполняются агентом при /init
-  // из labflow.yaml. Не редактируйте вручную без нужды.
+  // FORGE FRAMEWORK: parameters below are filled by /init
+  // from forge.yaml. Do not edit manually unless needed.
   // =====================================================
   titlepage(
     authors: ("__AUTHOR__",),
     city: "__CITY__",
     department: "__DEPARTMENT__",
-    documentName: "ОТЧЁТ ПО ЛАБОРАТОРНОЙ РАБОТЕ",
+    documentName: "LAB REPORT",
     education: "__EDUCATION__",
     group: "__GROUP__",
     teachers: ("__TEACHER__",),
@@ -35,8 +35,8 @@
 
   set figure.caption(separator: [ --- ])
 
-  show figure.where(kind: image): set figure(supplement: "Рисунок")
-  show figure.where(kind: table): set figure(supplement: "Таблица")
+  show figure.where(kind: image): set figure(supplement: "Figure")
+  show figure.where(kind: table): set figure(supplement: "Table")
 
   show figure.where(kind: table): set figure.caption(position: top)
 
@@ -53,7 +53,7 @@
 
   show list: set par(hanging-indent: -2.5em)
 
-  // Ссылка на изображения (без "рисунок", просто число)
+  // Image references (just number, no "figure" text)
   show ref: it => {
     let el = it.element
 

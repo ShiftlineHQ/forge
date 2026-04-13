@@ -1,149 +1,138 @@
-# LabFlow
+![Forge Framework Logo](logo.png)
 
-Полностью автономная система выполнения лабораторных работ через AI-агентов.
+# Forge Framework
 
-**2 действия** — и лабораторная готова: инициализация проекта + запуск решения. Всё остальное делают агенты.
+A fully autonomous university lab assignment solving and reviewing system powered by AI agents.
 
-## Возможности
+**2 actions** — and your lab is done: initialize the project + run the solver. Everything else is handled by the agents.
 
-- 📄 **Парсинг методички** — автоматически извлекает задание из PDF
-- 💻 **Решение задач** — код (C++, Python, ...) и/или математика
-- 📊 **Графики и скриншоты** — автоматическая генерация и захват
-- 📝 **Отчёт в Typst** — красивый PDF по ГОСТу с титульной страницей
-- 🔄 **Самопроверка** — компилирует, проверяет, исправляет ошибки
-- 📚 **Учебные материалы** — теория + контрольные вопросы с ответами
+## Features
 
-## Установка
+- **Guide Parsing** — automatically extracts requirements from PDF
+- **Problem Solving** — code (C++, Python, ...) and/or math
+- **Charts & Screenshots** — automatic generation and capture
+- **Typst Reports** — beautiful GOST-compliant PDF with title page
+- **Self-Verification** — compiles, checks, and fixes errors
+- **Study Materials** — theory + test questions with answers
+
+## Installation
 
 ```bash
-git clone https://github.com/<your-repo>/labflow
-cd labflow
+git clone https://github.com/ehlvg/forge
+cd forge
 ./install.sh
 ```
 
-Скрипт:
-- Копирует скиллы и субагентов в `~/.claude/skills/` и `~/.claude/agents/`
-- Устанавливает Typst CLI (если не установлен)
-- Работает для Claude Code и OpenCode
+The script:
+- Copies skills and subagents
+- Installs Typst CLI (if not already installed)
 
-## Использование
+## Usage
 
-### Каждая лабораторная — 2 действия:
+### Each assignment — just 2 actions:
 
 ```bash
-# 1. Создать и инициализировать проект
+# 1. Create and initialize a project
 mkdir lab3-probability && cd lab3-probability
-claude    # или opencode
+claude    # or opencode
 > /init
 
-# 2. Закинуть PDF методички и запустить
-cp ~/Downloads/методичка.pdf ./guide.pdf
+# 2. Drop in the guide PDF and run
+cp ~/Downloads/guide.pdf ./guide.pdf
 > /solve guide.pdf
 
-# Готово! PDF отчёта → docs/report.pdf
+# Done! Report PDF → docs/report.pdf
 ```
 
-### Первый запуск
+### First Run
 
-При первом `/init` система спросит:
-- ФИО студента
-- Группу
-- Университет и город
+On first `/init`, the system will ask for:
+- Full student name
+- Group
+- University and city
 
-Эти данные сохранятся в `~/.labflow.yaml` и больше не будут спрашиваться.
+This data is saved to `~/.forge.yaml` and won't be asked again.
 
-### Учебные материалы
+### Study Materials
 
 ```bash
 > /study
-# Создаёт STUDY_MATERIAL.md с теорией и контрольными вопросами
+# Creates STUDY_MATERIAL.md with theory and test questions
 ```
 
-## Структура проекта (после /init)
+## Project Structure (after /init)
 
 ```
 lab3-probability/
-├── labflow.yaml          ← конфигурация проекта
-├── CLAUDE.md             ← контекст для агента
-├── TASK.md               ← требования (создаётся при /solve)
-├── src/                  ← исходный код
-├── notebooks/            ← Jupyter-ноутбуки (если нужны)
-├── images/               ← скриншоты и графики
+├── forge.yaml             ← project configuration
+├── CLAUDE.md             ← agent context
+├── TASK.md               ← requirements (created by /solve)
+├── src/                  ← source code
+├── notebooks/            ← Jupyter notebooks (if needed)
+├── images/               ← screenshots and charts
 ├── docs/
-│   ├── template.typ      ← шаблон отчёта (ГОСТ, с данными студента)
-│   ├── titlepage.typ      ← титульная страница
-│   ├── report.typ        ← отчёт (заполняется агентом)
-│   └── report.pdf        ← финальный PDF
-├── STUDY_MATERIAL.md     ← учебные материалы (опционально)
+│   ├── template.typ      ← report template (GOST, with student data)
+│   ├── titlepage.typ     ← title page
+│   ├── report.typ        ← report (filled by agent)
+│   └── report.pdf        ← final PDF
+├── STUDY_MATERIAL.md     ← study materials (optional)
 └── .claude/
-    ├── skills/           ← скиллы (копируются при init)
-    └── agents/           ← субагенты
+    ├── skills/           ← skills (copied during init)
+    └── agents/           ← subagents
 ```
 
-## Пайплайн /solve
+## The /solve Pipeline
 
 ```
-PDF методички
+Guide PDF
      │
      ▼
 ┌─────────┐     ┌─────────┐     ┌─────────┐     ┌──────────┐
 │ Planner │ ──▶ │ Solver  │ ──▶ │ Writer  │ ──▶ │ Reviewer │
 │         │     │         │     │         │     │          │
-│ Парсит  │     │ Решает  │     │ Пишет   │     │Компилирует│
-│ PDF,    │     │ задачи, │     │ отчёт   │     │ Typst,   │
-│ создаёт │     │ код,    │     │ в Typst │     │ проверяет│
-│ TASK.md │     │ графики │     │         │     │ PDF      │
+│ Parses  │     │ Solves  │     │ Writes  │     │Compiles  │
+│ PDF,    │     │ tasks,  │     │ report  │     │ Typst,   │
+│ creates │     │ code,   │     │ in Typst│     │ verifies │
+│ TASK.md │     │ charts  │     │         │     │ PDF      │
 └─────────┘     └─────────┘     └─────────┘     └──────────┘
                                                       │
                                                       ▼
                                                 docs/report.pdf
 ```
 
-## Совместимость
+## Configuration
 
-| Функция | Claude Code | OpenCode |
-|---------|:-----------:|:--------:|
-| Скиллы (/init, /solve, /study) | ✅ | ✅ |
-| Субагенты (параллельная работа) | ✅ | ❌* |
-| Bash-команды | ✅ | ✅ |
-| Чтение PDF | ✅ | ✅ |
-| Компиляция Typst | ✅ | ✅ |
-
-\* В OpenCode все фазы выполняются последовательно в одном контексте — результат идентичен.
-
-## Конфигурация
-
-### Глобальная (~/.labflow.yaml)
+### Global (~/.forge.yaml)
 ```yaml
 student:
-  name: "Иванов Иван Иванович"
-  group: "ИУ7-43Б"
+  name: "Ivanov Ivan Ivanovich"
+  group: "IU7-43B"
 university:
-  name: "МГТУ им. Н.Э. Баумана"
-  short: "МГТУ"
-  city: "Москва"
+  name: "Bauman Moscow State Technical University"
+  short: "MSTU"
+  city: "Moscow"
 ```
 
-### Проектная (./labflow.yaml)
+### Project (./forge.yaml)
 ```yaml
-# Наследует из глобальной +
+# Inherits from global +
 subject:
-  name: "Теория вероятностей"
-  teacher: "Петров П.П."
+  name: "Probability Theory"
+  teacher: "Petrov P.P."
 lab:
   number: 3
-  title: "Случайные величины"  # авто-заполняется из PDF
+  title: "Random Variables"  # auto-filled from PDF
   variant: 12
-  type: "math"                  # math | code | mixed
+  type: "math"              # math | code | mixed
   code_language: "python"
 ```
 
-## Типы лабораторных
+## Lab Types
 
-- **code** — программирование (C++, Python, etc.). Создаёт код, компилирует, делает скриншоты.
-- **math** — вычисления. Python-скрипты с формулами, графиками, таблицами.
-- **mixed** — и код, и вычисления.
+- **code** — programming (C++, Python, etc.). Creates code, compiles, takes screenshots.
+- **math** — computations. Python scripts with formulas, charts, tables.
+- **mixed** — both code and computations.
 
-## Лицензия
+## License
 
 MIT

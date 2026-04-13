@@ -11,7 +11,7 @@ You are the main orchestrator. Your job is to take a lab guide PDF and produce a
 ## Prerequisites
 
 Before starting, verify:
-1. `labflow.yaml` exists — if not, tell the user to run `/init` first.
+1. `forge.yaml` exists — if not, tell the user to run `/init` first.
 2. The guide PDF is available — either passed as `$ARGUMENTS` or find any `.pdf` file in the project root.
 3. `typst` is installed — if not, install it:
    ```bash
@@ -24,7 +24,7 @@ Before starting, verify:
 
 After EACH phase, create a git checkpoint:
 ```bash
-git add -A && git commit -m "labflow: phase N — <description> [<agent>]"
+git add -A && git commit -m "forge: phase N — <description> [<agent>]"
 ```
 
 This gives a full history of the pipeline. The user can:
@@ -34,12 +34,12 @@ This gives a full history of the pipeline. The user can:
 - Re-run from a specific point
 
 **Checkpoint naming convention:**
-- `labflow: phase 1 — task extracted [planner]`
-- `labflow: phase 2 — solution complete [solver]`
-- `labflow: phase 3 — report written [writer]`
-- `labflow: phase 4 — PDF compiled [reviewer]`
+- `forge: phase 1 — task extracted [planner]`
+- `forge: phase 2 — solution complete [solver]`
+- `forge: phase 3 — report written [writer]`
+- `forge: phase 4 — PDF compiled [reviewer]`
 
-If git is not initialized, run `git init && git add -A && git commit -m "labflow: initial state"` before starting.
+If git is not initialized, run `git init && git add -A && git commit -m "forge: initial state"` before starting.
 
 ## Pipeline
 
@@ -57,44 +57,44 @@ Execute these phases in order. Each phase produces artifacts consumed by the nex
 1. Read the guide PDF thoroughly (use available PDF reading tools, `pdftotext`, or `python3` with `pymupdf`/`pdfplumber`).
 2. Extract:
    - Full lab title
-   - Objective (цель работы)
+   - Objective
    - Theoretical background needed
    - Task requirements (what to implement/compute/solve)
-   - Variant-specific data (if variant is set in `labflow.yaml`)
+   - Variant-specific data (if variant is set in `forge.yaml`)
    - Required report structure (if specified in the guide)
    - Any formulas, algorithms, or methods to use
    - Requirements for screenshots/figures
-3. Update `labflow.yaml` → fill in `lab.title` if it was empty.
+3. Update `forge.yaml` → fill in `lab.title` if it was empty.
 4. Write `TASK.md` with this structure:
 
 ```markdown
 # <Lab Title>
 
-## Цель работы
+## Objective
 <objective>
 
-## Теоретическая часть
+## Theoretical Background
 <theory summary — key concepts, formulas, methods>
 
-## Задание
+## Task
 <full task description>
 <variant-specific data if applicable>
 
-## Структура отчёта
+## Report Structure
 1. <section 1>
 2. <section 2>
 ...
 
-## Требования к реализации
+## Implementation Requirements
 - <language, tools, constraints>
 
-## Требования к отчёту
+## Report Requirements
 - <what must be included: code listings, screenshots, formulas, tables>
 ```
 
-**📸 Checkpoint:**
+**Checkpoint:**
 ```bash
-git add -A && git commit -m "labflow: phase 1 — task extracted [planner]"
+git add -A && git commit -m "forge: phase 1 — task extracted [planner]"
 ```
 
 ---
@@ -103,7 +103,7 @@ git add -A && git commit -m "labflow: phase 1 — task extracted [planner]"
 
 **Goal:** Produce a working solution — code, computations, or both.
 
-Read `TASK.md` and `labflow.yaml` to determine the lab type.
+Read `TASK.md` and `forge.yaml` to determine the lab type.
 
 #### If `type: code` or `type: mixed`:
 
@@ -111,12 +111,12 @@ Read `TASK.md` and `labflow.yaml` to determine the lab type.
 **Otherwise**, do this yourself following the coder skill rules:
 
 1. Read `TASK.md` for implementation requirements.
-2. Determine the language (from `labflow.yaml` or `TASK.md`). Default: C++23.
+2. Determine the language (from `forge.yaml` or `TASK.md`). Default: C++23.
 3. Write clean, compilable code in `src/`.
    - C++: headers in `.hpp` with `#pragma once`, implementations in `.cpp`.
    - Python: modules in `.py`, entry point in `main.py`.
    - Other languages: follow standard conventions.
-4. Comments in Russian, minimal.
+4. Comments in the report language, minimal.
 5. Build and test:
    - C++: `g++ -std=c++23 -o build/main src/*.cpp && ./build/main`
    - Python: `python3 src/main.py`
@@ -126,7 +126,7 @@ Read `TASK.md` and `labflow.yaml` to determine the lab type.
 
 1. Create a Jupyter notebook in `notebooks/` OR a Python script in `src/`.
 2. For each computational step:
-   - Explain what you're doing (in Russian)
+   - Explain what you're doing
    - Show the formula
    - Compute the result
    - Print/display results
@@ -209,9 +209,9 @@ Install dependencies as needed:
 pip install pillow matplotlib numpy scipy sympy pandas --break-system-packages -q 2>/dev/null
 ```
 
-**📸 Checkpoint:**
+**Checkpoint:**
 ```bash
-git add -A && git commit -m "labflow: phase 2 — solution complete [solver]"
+git add -A && git commit -m "forge: phase 2 — solution complete [solver]"
 ```
 
 ---
@@ -224,7 +224,7 @@ git add -A && git commit -m "labflow: phase 2 — solution complete [solver]"
 **Otherwise**, do this yourself following the writer skill rules:
 
 1. Read `TASK.md` for the required report structure.
-2. Read `labflow.yaml` for metadata.
+2. Read `forge.yaml` for metadata.
 3. Read the solution files (code, notebooks, outputs).
 4. Write `docs/report.typ`:
 
@@ -233,13 +233,13 @@ git add -A && git commit -m "labflow: phase 2 — solution complete [solver]"
 - Mirror the section structure from `TASK.md` exactly.
 - Write in coherent paragraphs, no bullet lists in body text.
 - No bold/italic in body text unless quoting variable names or terms.
-- All text in Russian (unless the assignment specifies otherwise).
+- All text in the report language (usually Russian unless specified otherwise).
 
 **Code inclusion:**
 ```typst
 #figure(
   raw(read("../src/main.cpp"), lang: "cpp", block: true),
-  caption: "Исходный код программы"
+  caption: "Source code"
 )
 ```
 
@@ -247,7 +247,7 @@ git add -A && git commit -m "labflow: phase 2 — solution complete [solver]"
 ```typst
 #figure(
   image("../images/output.png", width: 80%),
-  caption: "Результат работы программы"
+  caption: "Program output"
 )
 ```
 
@@ -261,13 +261,13 @@ git add -A && git commit -m "labflow: phase 2 — solution complete [solver]"
     [*x*], [*y*], [*f(x)*],
     [0.0], [1.0], [0.5],
   ),
-  caption: "Результаты вычислений"
+  caption: "Computational results"
 )
 ```
 
-**📸 Checkpoint:**
+**Checkpoint:**
 ```bash
-git add -A && git commit -m "labflow: phase 3 — report written [writer]"
+git add -A && git commit -m "forge: phase 3 — report written [writer]"
 ```
 
 ---
@@ -319,9 +319,9 @@ git add -A && git commit -m "labflow: phase 3 — report written [writer]"
    The report is ready for submission.
    ```
 
-7. **📸 Final checkpoint:**
+7. **Final checkpoint:**
    ```bash
-   git add -A && git commit -m "labflow: phase 4 — PDF compiled [reviewer]"
+   git add -A && git commit -m "forge: phase 4 — PDF compiled [reviewer]"
    ```
 
 8. **Show version history:**
@@ -341,10 +341,3 @@ git add -A && git commit -m "labflow: phase 3 — report written [writer]"
 - If Python packages are missing: `pip install <package> --break-system-packages -q`
 - If fonts are missing for Typst: the template should use built-in fonts or download them.
 - If the guide PDF is scanned (no text): use OCR with `pip install pytesseract --break-system-packages -q` and `tesseract`.
-
-## Compatibility
-
-This skill works in both Claude Code and OpenCode.
-- In Claude Code: may use subagents (`@planner`, `@solver`, `@writer`, `@reviewer`) for parallel/isolated work.
-- In OpenCode: runs all phases sequentially in one context.
-- Both tools support bash, file creation, and file reading.

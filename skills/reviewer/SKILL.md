@@ -69,7 +69,7 @@ ls -la docs/report.pdf
 file docs/report.pdf
 
 # Check page count (rough estimate from file size)
-# A typical report PDF is 100KB-5MB
+# A typical report PDF is 100KB–5MB
 wc -c < docs/report.pdf
 ```
 
@@ -93,15 +93,15 @@ If anything is missing, fix `report.typ` and re-compile.
 Print the result:
 
 ```
-✅ Отчёт успешно скомпилирован!
+✅ Report compiled successfully!
 
 📄 PDF: docs/report.pdf
-📊 Размер: <size> KB
-📝 Разделы: <section count>
-🖼️ Рисунков: <figure count>
-💻 Листингов: <listing count>
+📊 Size: <size> KB
+📝 Sections: <section count>
+🖼️ Figures: <figure count>
+💻 Listings: <listing count>
 
-Отчёт готов к сдаче.
+The report is ready for submission.
 ```
 
 ## Error escalation
@@ -115,5 +115,5 @@ If after 5 compilation attempts the report still fails:
 
 - Never skip compilation. The pipeline is not complete without a PDF.
 - Never approve a report with placeholder text.
-- Never modify `labflow.yaml` or `TASK.md`.
+- Never modify `forge.yaml` or `TASK.md`.
 - Always verify file references before compiling.
