@@ -12,7 +12,7 @@ You are setting up a new lab assignment project. Your goal is to create everythi
 
 Check if `~/.forge.yaml` exists.
 
-**If it exists:** read student and university data from it.
+**If it exists:** read student, university, and language data from it.
 **If it does NOT exist:** ask the user for:
 - Full name
 - Short name (initials + surname, e.g. "V.D. Pankov")
@@ -20,8 +20,22 @@ Check if `~/.forge.yaml` exists.
 - University name and short name
 - Department/faculty
 - City
+- Report language: `russian` or `english` — default `russian`
 
-Then save to `~/.forge.yaml` so it's never asked again.
+Then save to `~/.forge.yaml` so it's never asked again. The global config format:
+
+```yaml
+student:
+  name: "<full name>"
+  name_short: "<initials + surname>"
+  group: "<group>"
+university:
+  name: "<university full name>"
+  short: "<short name>"
+  department: "<department/faculty>"
+  city: "<city>"
+language: "<russian|english>"
+```
 
 Check if arguments were provided (`$ARGUMENTS`). Parse them for subject name and lab number.
 
@@ -72,7 +86,7 @@ Create these directories and files:
 
 ## Step 4: Generate forge.yaml
 
-Write `forge.yaml` in the project root with all gathered data:
+Write `forge.yaml` in the project root with all gathered data. Fields like `student`, `university`, and `language` should be inherited from `~/.forge.yaml` if it exists:
 
 ```yaml
 student:
@@ -84,6 +98,7 @@ university:
   short: "<short name>"
   department: "<department/faculty>"
   city: "<city>"
+language: "<russian|english>"
 subject:
   name: "<subject>"
   teacher: "<teacher initials + surname>"
@@ -93,20 +108,30 @@ lab:
   title: ""
   variant: <V>
   type: "<type>"
-  language: "russian"
+  language: "<russian|english>"
   code_language: "<lang>"
 ```
 
 When generating `name_short` from the full name: "Pankov Vasiliy Dmitrievich" → "V.D. Pankov".
 
+Supported `language` values: `russian` or `english`.
+
 ## Step 5: Set Up Typst Template
 
 The template consists of TWO files: `docs/titlepage.typ` and `docs/template.typ`.
 
+**Select the language-appropriate templates:**
+
+- If `language` is `russian`: use files `gost.typ.ru` and `titlepage.typ.ru` from the Forge installation
+- If `language` is `english`: use files `template.typ` and `titlepage.typ` from the Forge installation
+
 **Copy both from the Forge Framework installation** — look in these locations (in order):
-1. `../../templates/titlepage.typ` and `../../templates/template.typ` (relative to this skill file)
-2. `~/.config/opencode/skills/forge/templates/titlepage.typ` and `template.typ`
-3. `~/.claude/skills/forge/templates/titlepage.typ` and `template.typ` (legacy fallback only)
+1. `../../templates/<filename>` (relative to this skill file)
+2. `~/.config/opencode/skills/forge/templates/<filename>`
+3. `~/.claude/skills/forge/templates/<filename>` (legacy fallback only)
+
+For Russian, copy `gost.typ.ru` → `docs/template.typ` and `titlepage.typ.ru` → `docs/titlepage.typ`.
+For English, copy `template.typ` → `docs/template.typ` and `titlepage.typ` → `docs/titlepage.typ`.
 
 If not found, the template content is embedded below for reference — generate the files from it.
 
